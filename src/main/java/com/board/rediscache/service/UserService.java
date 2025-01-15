@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -23,7 +25,7 @@ public class UserService {
         }
 
         User user = userRepository.findById(id).orElseThrow();
-        redisTemplate.opsForValue().set(key, user);
+        objectRedisTemplate.opsForValue().set(key, user, Duration.ofSeconds(20));
 
         return user;
     }
