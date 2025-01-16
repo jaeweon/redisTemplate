@@ -1,5 +1,6 @@
 package com.board.rediscache.controller;
 
+import com.board.rediscache.domain.RedisHashUser;
 import com.board.rediscache.domain.User;
 import com.board.rediscache.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,11 @@ public class UserController {
 
     @GetMapping("users/{id}")
     public User getUser(@PathVariable Long id) {
-        return userService.getUser(id);
+        return userService.getCacheUser(id);
+    }
+
+    @GetMapping("redishash-users/{id}")
+    public RedisHashUser getHashUser(@PathVariable Long id) {
+        return userService.getHashUser(id);
     }
 }
